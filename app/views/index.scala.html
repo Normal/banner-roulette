@@ -2,8 +2,16 @@
 
 @main("Welcome to Play") {
 
-    <p class="success"> @flash.get("success")</p>
+    <p class="bg-success"> @flash.get("success")</p>
 
-    @campaign.id @campaign.name
+    <table class="table table-bordered">
+        <tr>
+            <th>Id</th><th>Name</th><th>Link</th><th>Image</th>
+        </tr>
+        <tr>
+            <td>@campaign.id</td><td>@campaign.name</td><td>@campaign.link</td><td>@campaign.image</td>
+        </tr>
+    </table>
+
 
 }
