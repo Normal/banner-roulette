@@ -1,0 +1,9 @@
+@(campaign: Campaign)(implicit flash: Flash)
+
+@main("Welcome to Play") {
+
+    <p class="success"> @flash.get("success")</p>
+
+    @campaign.id @campaign.name
+
+}

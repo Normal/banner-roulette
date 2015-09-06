@@ -1,0 +1,19 @@
+@(campaignForm: Form[Campaign])
+
+@main("Create new campaign") {
+
+    @if(campaignForm.hasErrors) {
+        @if(campaignForm.errors.nonEmpty) {
+            @for(error <- campaignForm.errors) {
+                <b>@error.key</b> @Messages(error.message) <br />
+            }
+        }
+    }
+
+    @helper.form(action = routes.CampaignController.createCampaign()) {
+        @helper.inputText(campaignForm("name"), '_label -> "Name", 'placeholder -> "")
+        @helper.inputText(campaignForm("link"), '_label -> "Link", 'placeholder -> "")
+        @helper.inputText(campaignForm("image"), '_label -> "Image", 'placeholder -> "")
+        <input type="submit" value="Create">
+    }
+}
