@@ -10,10 +10,13 @@
         }
     }
 
-    @helper.form(action = routes.CampaignController.createCampaign()) {
-        @helper.inputText(campaignForm("name"), '_label -> "Name", 'placeholder -> "")
-        @helper.inputText(campaignForm("link"), '_label -> "Link", 'placeholder -> "")
-        @helper.inputText(campaignForm("image"), '_label -> "Image", 'placeholder -> "")
-        <input type="submit" value="Create">
+    @helper.form(action = routes.CampaignController.createCampaign(),
+        'class -> "form-horizontal", 'enctype -> "multipart/form-data") {
+        @helper.inputText(campaignForm("name"), '_label -> "Name", 'placeholder -> "", 'class -> "form-group")
+        @helper.inputText(campaignForm("link"), '_label -> "Link", 'placeholder -> "", 'class -> "form-group")
+        @helper.inputFile(campaignForm("image"), '_label -> "Image", 'placeholder -> "", 'class -> "form-group")
+        <div class="form-group">
+            <button type="submit" class="btn btn-default">Create</button>
+        </div>
     }
 }

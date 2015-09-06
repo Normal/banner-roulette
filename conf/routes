@@ -4,7 +4,11 @@
 
 # Home page
 GET         /                     controllers.Application.index
+# Create new campaign page
 GET         /create               controllers.Application.create
+# Campaign details page
+GET         /:id                  controllers.Application.campaign(id:Long)
+
 
 POST        /create               controllers.CampaignController.createCampaign
 

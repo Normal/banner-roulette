@@ -14,4 +14,9 @@ object Application extends Controller {
     Ok(views.html.create(CampaignController.campaignForm))
   }
 
+  def campaign(id: Long) = Action {
+    val campaign = Campaign(Some(1), "name1", "some link", null)
+    Ok(views.html.campaign(campaign))
+  }
+
 }

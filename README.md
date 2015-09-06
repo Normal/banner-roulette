@@ -1,6 +1,9 @@
 Used libs:
+play, scala, bootstrap3
 
 Running:
+- sbt run
+- http://localhost:9000/
 
 Run in debug: 
 activator -jvm-debug 9999 run
