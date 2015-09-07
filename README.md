@@ -9,7 +9,8 @@ Run in debug:
 activator -jvm-debug 9999 run
 
 Open project in idea:
-- install scala plugin
+- idea 14
+- install scala plugin > 1.5
 - open by "build.sbt"
 * refresh mb needed
 

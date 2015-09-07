@@ -1,3 +1,5 @@
+import play.PlayScala
+
 name := "banner-roulette"
 
 version := "1.0"
@@ -13,7 +15,10 @@ libraryDependencies ++= Seq(
   ws,
   "org.webjars" %% "webjars-play" % "2.3.0",
   "org.webjars" % "bootstrap" % "3.3.5",
-  "com.livestream" %% "scredis" % "2.0.6"
+  "com.livestream" %% "scredis" % "2.0.6",
+  "com.typesafe.slick" %% "slick" % "3.0.0",
+  "com.h2database" % "h2" % "1.3.175",
+  "com.zaxxer" % "HikariCP-java6" % "2.3.3"
 )
 
 unmanagedResourceDirectories in Test <+= baseDirectory(_ / "target/web/public/test")

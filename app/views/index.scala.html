@@ -1,4 +1,4 @@
-@(campaign: Campaign)(implicit flash: Flash)
+@(campaigns: Seq[Campaign])(implicit flash: Flash)
 
 @main("Welcome to Play") {
 
@@ -8,12 +8,14 @@
         <tr>
             <th>Id</th><th>Name</th><th>Link</th><th>Image</th>
         </tr>
-        <tr>
-            <td><a href="@routes.Application.campaign(1)">@campaign.id</a></td>
-            <td><a href="@routes.Application.campaign(1)">@campaign.name</a></td>
-            <td>@campaign.link</td>
-            <td>@campaign.image</td>
-        </tr>
+        @for(campaign <- campaigns) {
+            <tr>
+                <td><a href="@routes.Application.campaign(campaign.id.get)">@campaign.id</a></td>
+                <td><a href="@routes.Application.campaign(campaign.id.get)">@campaign.name</a></td>
+                <td>@campaign.link</td>
+                <td>@campaign.image</td>
+            </tr>
+        }
     </table>
 
 

@@ -8,8 +8,8 @@ object RedisService {
   //redis configuration can be passed here: Redis(config)
   lazy val redis = Redis()
 
-  def get(campaignId: Long): Statistics = {
-    val values = redis.mGetAsMap[Long](RedisSchema.all(campaignId):_*)
+  def get(campaignId: String): Statistics = {
+    val values = redis.mGetAsMap[String](RedisSchema.all(campaignId):_*)
 
     Statistics(Some(1), 0, 0, 0)
   }
