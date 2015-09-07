@@ -1,5 +1,5 @@
 Used libs:
-play, scala, bootstrap3
+play, scala, bootstrap3, slick
 
 Running:
 - sbt run
@@ -16,5 +16,10 @@ Open project in idea:
 
 Project requirements specification:
 https://docs.google.com/document/d/1rwbn8AXpIQiz4GZt9iaF_BUVZPblOqztLSvGjyZDHLI/edit?pli=1
+
+Different:
+1.sql
+
+
 
 

@@ -16,4 +16,8 @@ object CampaignService {
       Await.result(db.run(campaigns.result), Duration.Inf)
     } finally db.close()
   }
+
+//  def save(campaign: Campaign) {
+//    db.run()
+//  }
 }
