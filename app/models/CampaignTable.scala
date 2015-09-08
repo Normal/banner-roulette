@@ -13,5 +13,5 @@ class CampaignTable(tag: Tag) extends Table[Campaign](tag, "CAMPAIGNS") {
 
   def image: Rep[String] = column[String]("IMAGE")
 
-  def * = (id.?, name, link, image) <>(Campaign.tupled, Campaign.unapply)
+  def * = (id.?, name, link, image) <>((Campaign.apply _).tupled, Campaign.unapply)
 }

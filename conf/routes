@@ -11,6 +11,7 @@ GET         /:id                  controllers.Application.campaign(id:Long)
 
 
 POST        /create               controllers.CampaignController.createCampaign
+GET         /api/random               controllers.CampaignController.random
 
 # Map static resources from the /public folder to the /assets URL path
 GET         /assets/*file         controllers.Assets.at(path="/public", file)

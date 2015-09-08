@@ -10,14 +10,19 @@ object CampaignService {
 
   val db = Database.forConfig("db.default")
 
+  val campaigns = TableQuery[CampaignTable]
+
   def get(): Seq[Campaign] = {
-    try {
-      val campaigns = TableQuery[CampaignTable]
-      Await.result(db.run(campaigns.result), Duration.Inf)
-    } finally db.close()
+    Await.result(db.run(campaigns.result), Duration.Inf)
   }
 
-//  def save(campaign: Campaign) {
-//    db.run()
-//  }
+  def getById(id: Long): Campaign = {
+    Await.result(db.run(campaigns.filter {
+      _.id === id
+    }.result), Duration.Inf).head
+  }
+
+  def save(campaign: Campaign) {
+    db.run(campaigns += campaign)
+  }
 }

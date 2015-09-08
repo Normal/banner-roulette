@@ -1,11 +1,16 @@
 @(campaign: Campaign)
 
-@main(campaign.name) {
-    <table class="table table-condensed">
-        <tr>
-            <td><h3>Views <span class="label label-default">0</span></h3></td>
-            <td><h3>Clicks <span class="label label-default">0</span></h3></td>
-            <td><h3>Conversions <span class="label label-default">0</span></h3></td>
-        </tr>
-    </table>
-}
+    @main(campaign.name) {
+        <table class="table table-condensed">
+            <tr>
+                <td><img src="data:image/jpg;base64,@campaign.image" /></td>
+                <td><h1>@campaign.name</h1></td>
+                <td><h3>@campaign.link</h3></td>
+            </tr>
+            <tr>
+                <td><h3>Views <span class="label label-default">0</span></h3></td>
+                <td><h3>Clicks <span class="label label-default">0</span></h3></td>
+                <td><h3>Conversions <span class="label label-default">0</span></h3></td>
+            </tr>
+        </table>
+    }

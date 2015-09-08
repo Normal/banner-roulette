@@ -1,5 +1,5 @@
 Used libs:
-play, scala, bootstrap3, slick
+play, scala, bootstrap3, slick (versions)
 
 Running:
 - sbt run
@@ -19,6 +19,8 @@ https://docs.google.com/document/d/1rwbn8AXpIQiz4GZt9iaF_BUVZPblOqztLSvGjyZDHLI/
 
 Different:
 1.sql
+first time compile
+routes
 
 
 

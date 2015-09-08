@@ -1,6 +1,5 @@
 package controllers
 
-import models.Campaign
 import play.api.mvc._
 import services.CampaignService
 
@@ -16,7 +15,7 @@ object Application extends Controller {
   }
 
   def campaign(id: Long) = Action {
-    val campaign = Campaign(Some(1), "name1", "some link", null)
+    val campaign = CampaignService.getById(id)
     Ok(views.html.campaign(campaign))
   }
 
