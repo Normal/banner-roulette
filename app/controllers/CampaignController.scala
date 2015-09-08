@@ -53,5 +53,7 @@ object CampaignController extends Controller {
     val randomIndex = new Random(System.currentTimeMillis()).nextInt(campaigns.length)
 
     Ok(Json.toJson(campaigns(randomIndex)))
+      //allows CORS
+      .withHeaders(ACCESS_CONTROL_ALLOW_ORIGIN -> "*")
   }
 }

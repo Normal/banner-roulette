@@ -1,0 +1,17 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $.getJSON("http://localhost:9000/api/random")
+                    .success(function(data) {
+                        $("body").append("<a href='"+ data.link +"'><img src='data:image/jpg;base64,"+ data.image +"'/></a>");
+                    });
+            });
+        </script>
+    </body>
+</html>

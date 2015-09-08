@@ -32,7 +32,20 @@
         </div>
         <div class="row">
             <div class="col-md-2"></div>
-            <div class="col-md-8">Embedded code here</div>
+            <div class="col-md-8">
+                    <h2>Embedded code</h2>
+                <pre>
+                    &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">&lt;/script&gt;
+                    &lt;script type="text/javascript"&gt;
+                        jQuery(function ($) {
+                            $.getJSON("http://localhost:9000/api/random")
+                                .success(function(data) {
+                                    $("body").append("&lt;a href='"+ data.link +"'>&lt;img src='data:image/jpg;base64,"+ data.image +"'/>&lt;/a&gt;");
+                                });
+                        });
+                    &lt;/script&gt;
+                </pre>
+            </div>
             <div class="col-md-2"></div>
         </div>
 

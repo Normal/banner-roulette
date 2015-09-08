@@ -21,6 +21,7 @@ Different:
 1.sql
 first time compile
 routes
+client test page
 
 
 
