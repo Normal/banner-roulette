@@ -8,7 +8,7 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
-import services.CampaignService
+import services.{RedisService, CampaignService}
 
 import scala.util.Random
 
@@ -48,11 +48,15 @@ object CampaignController extends Controller {
 
   def random = Action {
     //ugly solution
-    //TODO: choose random item on DB side
+    //Its preferable to choose random item on DB side
     val campaigns = CampaignService.get()
     val randomIndex = new Random(System.currentTimeMillis()).nextInt(campaigns.length)
+    val randomCampaign: Campaign = campaigns(randomIndex)
 
-    Ok(Json.toJson(campaigns(randomIndex)))
+    //Not sure is it correct, I guess if client requested random campaign - it will viewed anyway
+    RedisService.increment(randomCampaign.id.get.toString, "views")
+
+    Ok(Json.toJson(randomCampaign))
       //allows CORS
       .withHeaders(ACCESS_CONTROL_ALLOW_ORIGIN -> "*")
   }

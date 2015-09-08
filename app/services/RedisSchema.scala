@@ -11,4 +11,8 @@ object RedisSchema {
   def all(id: String): List[String] = {
     List(views(id), clicks(id), conversions(id))
   }
+
+  def key(id: String, key:String) = {
+    s"uid:$id:$key"
+  }
 }

@@ -1,7 +1,7 @@
 package controllers
 
 import play.api.mvc._
-import services.CampaignService
+import services.{RedisService, CampaignService}
 
 object Application extends Controller {
 
@@ -16,7 +16,8 @@ object Application extends Controller {
 
   def campaign(id: Long) = Action {
     val campaign = CampaignService.getById(id)
-    Ok(views.html.campaign(campaign))
+    val statistics = RedisService.get(id.toString)
+    Ok(views.html.campaign(campaign, statistics))
   }
 
 }

@@ -22,6 +22,7 @@ Different:
 first time compile
 routes
 client test page
+mb not correct to incr views when random
 
 
 

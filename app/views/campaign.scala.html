@@ -1,4 +1,4 @@
-@(campaign: Campaign)
+@(campaign: Campaign, statistics: Statistics)
 
     @main(campaign.name) {
         <table class="table table-condensed">
@@ -8,9 +8,9 @@
                 <td><h3>@campaign.link</h3></td>
             </tr>
             <tr>
-                <td><h3>Views <span class="label label-default">0</span></h3></td>
-                <td><h3>Clicks <span class="label label-default">0</span></h3></td>
-                <td><h3>Conversions <span class="label label-default">0</span></h3></td>
+                <td><h3>Views <span class="label label-default">@statistics.views</span></h3></td>
+                <td><h3>Clicks <span class="label label-default">@statistics.clicks</span></h3></td>
+                <td><h3>Conversions <span class="label label-default">@statistics.conversions</span></h3></td>
             </tr>
         </table>
     }
