@@ -7,10 +7,19 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         <script type="text/javascript">
             jQuery(function ($) {
+                var campaignId;
                 $.getJSON("http://localhost:9000/api/random")
                     .success(function(data) {
-                        $("body").append("<a href='"+ data.link +"'><img src='data:image/jpg;base64,"+ data.image +"'/></a>");
+                        $("body").append("<a id='roulette' href='#'><img src='data:image/jpg;base64,"+ data.image +"'/></a>");
+                            campaignId = data.id
                     });
+
+                $("body").on('click', '#roulette', function() {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:9000/api/increment/clicks"+campaignId
+                    });
+                });
             });
         </script>
     </body>

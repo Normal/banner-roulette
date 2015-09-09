@@ -3,18 +3,20 @@
 # ~~~~
 
 # Home page
-GET         /                     controllers.Application.index
+GET         /                               controllers.Application.index
 # Create new campaign page
-GET         /create               controllers.Application.create
+GET         /create                         controllers.Application.create
 # Campaign details page
-GET         /:id                  controllers.Application.campaign(id:Long)
+GET         /:id                            controllers.Application.campaign(id:Long)
 
 
-POST        /create               controllers.CampaignController.createCampaign
-GET         /api/random               controllers.CampaignController.random
+POST        /create                         controllers.CampaignController.createCampaign
+# Mb its better to use POST for this one
+GET         /api/random                     controllers.CampaignController.random
+POST        /api/increment/clicks:id        controllers.StatisticsController.incrementClicks(id: String)
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file         controllers.Assets.at(path="/public", file)
-GET         /webjars/*file        controllers.WebJarAssets.at(file)
+GET         /assets/*file                   controllers.Assets.at(path="/public", file)
+GET         /webjars/*file                  controllers.WebJarAssets.at(file)
 
     
