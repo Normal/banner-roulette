@@ -13,7 +13,7 @@
         $.getJSON("http://localhost:9000/api/random")
                 .success(function (data) {
                     $("body").append("<a id='roulette' href='#'><img src='data:image/jpg;base64," + data.image + "'/></a>");
-                    campaignId = data.id
+                    campaignId = data.id;
                     ws.send(JSON.stringify({id: campaignId+"", incr: "views"}));
                 });
 

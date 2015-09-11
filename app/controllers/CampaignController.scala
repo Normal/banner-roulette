@@ -1,6 +1,11 @@
 package controllers
 
 
+import java.awt.Image
+import java.awt.image.BufferedImage
+import java.io.{ByteArrayOutputStream, FileInputStream}
+import javax.imageio.ImageIO
+
 import models.Campaign
 import org.apache.commons.codec.binary.Base64
 import play.api.Logger
@@ -10,6 +15,7 @@ import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import services.{RedisService, CampaignService}
 
+import scala.Predef.String
 import scala.util.Random
 
 object CampaignController extends Controller {
@@ -27,8 +33,8 @@ object CampaignController extends Controller {
   def createCampaign = Action(parse.multipartFormData) { implicit request =>
     request.body.file("image").map {
       picture =>
-        val bytes = org.apache.commons.io.FileUtils.readFileToByteArray(picture.ref.file)
-        //TODO: resize image here
+        val is = new FileInputStream(picture.ref.file)
+        val bytes = resizeImage(is)
 
         campaignForm.bindFromRequest.fold(
           hasErrors => {
@@ -44,6 +50,19 @@ object CampaignController extends Controller {
       Redirect(routes.Application.index()).flashing(
         "error" -> "Missing file")
     }
+  }
+
+  private def resizeImage(is: FileInputStream): Array[Byte] = {
+    val os = new ByteArrayOutputStream()
+
+    val sourceImage = ImageIO.read(is)
+    val thumbnail = sourceImage.getScaledInstance(200, -1, Image.SCALE_SMOOTH)
+    val bufferedThumbnail = new BufferedImage(thumbnail.getWidth(null),
+      thumbnail.getHeight(null),
+      BufferedImage.TYPE_INT_RGB)
+    bufferedThumbnail.getGraphics.drawImage(thumbnail, 0, 0, null)
+    ImageIO.write(bufferedThumbnail, "jpeg", os)
+    os.toByteArray
   }
 
   def random = Action {
