@@ -7,7 +7,6 @@ import play.api.libs.json.JsValue
 import play.api.libs.json.Json
 import akka.actor.ActorRef
 import akka.actor.Props
-import scala.xml.Utility
 
 
 class UserActor(uid: String, board: ActorRef, out: ActorRef) extends Actor with ActorLogging {
@@ -18,11 +17,11 @@ class UserActor(uid: String, board: ActorRef, out: ActorRef) extends Actor with 
   }
 
   def receive = LoggingReceive {
-    case Message(muid, s) if sender == board => {
-      val js = Json.obj("type" -> "message", "uid" -> muid, "msg" -> s)
+    case Message(muid, id, incr) if sender == board => {
+      val js = Json.obj("type" -> "message", "uid" -> muid, "id" -> id, "incr" -> incr)
       out ! js
     }
-    case js: JsValue => (js \ "msg").validate[String] map { Utility.escape(_) }  map { board ! Message(uid, _ ) } 
+    case js: JsValue => board ! Message(uid, (js \ "id").as[String], (js \ "incr").as[String])
     case other => log.error("unhandled: " + other)
   }
 }

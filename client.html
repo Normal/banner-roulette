@@ -9,18 +9,12 @@
     jQuery(function ($) {
         var ws = new WebSocket("ws://localhost:9000/api/ws");
 
-        ws.onmessage = function (event) {
-            var message = JSON.parse(event.data);
-            alert(message.msg)
-        };
-
-
         var campaignId;
         $.getJSON("http://localhost:9000/api/random")
                 .success(function (data) {
                     $("body").append("<a id='roulette' href='#'><img src='data:image/jpg;base64," + data.image + "'/></a>");
                     campaignId = data.id
-                    ws.send(JSON.stringify({msg: "views1"}));
+                    ws.send(JSON.stringify({id: campaignId+"", incr: "views"}));
                 });
 
         $("body").on('click', '#roulette', function () {
@@ -29,7 +23,7 @@
                 url: "http://localhost:9000/api/increment/clicks" + campaignId
             });
 
-            ws.send(JSON.stringify({msg: "clicks1"}));
+            ws.send(JSON.stringify({id: campaignId+"", incr: "clicks"}));
         });
     });
 </script>
