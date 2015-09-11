@@ -36,13 +36,27 @@
             <div class="col-md-8">
                     <h2>Embedded code</h2>
                 <pre>
-                    &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js">&lt;/script&gt;
+                    &lt;script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js">&lt;/script&gt;
                     &lt;script type="text/javascript"&gt;
                         jQuery(function ($) {
+                            var ws = new WebSocket("ws://localhost:9000/api/ws");
+
+                            var campaignId;
                             $.getJSON("http://localhost:9000/api/random")
-                                .success(function(data) {
-                                    $("body").append("&lt;a href='"+ data.link +"'>&lt;img src='data:image/jpg;base64,"+ data.image +"'/>&lt;/a&gt;");
+                                    .success(function (data) {
+                                        $("body").append("&lt;a id='roulette' href='#'&gt;&lt;img src='data:image/jpg;base64," + data.image + "'/&gt;&lt;/a&gt;");
+                                        campaignId = data.id;
+                                        ws.send(JSON.stringify({id: campaignId+"", incr: "views"}));
+                                    });
+
+                            $("body").on('click', '#roulette', function () {
+                                $.ajax({
+                                    type: "POST",
+                                    url: "http://localhost:9000/api/increment/clicks" + campaignId
                                 });
+
+                                ws.send(JSON.stringify({id: campaignId+"", incr: "clicks"}));
+                            });
                         });
                     &lt;/script&gt;
                 </pre>
