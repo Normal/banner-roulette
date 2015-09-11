@@ -16,7 +16,15 @@ class ApplicationSpec extends Specification {
   "Application" should {
 
     "send 404 on a bad request" in new WithApplication{
-      route(FakeRequest(GET, "/boum")) must beNone
+      route(FakeRequest(GET, "/api/boum")) must beNone
+    }
+
+    "render the create page" in new WithApplication{
+      val home = route(FakeRequest(GET, "/create")).get
+
+      status(home) must equalTo(OK)
+      contentType(home) must beSome.which(_ == "text/html")
+      contentAsString(home) must contain ("Embedded code")
     }
 
     "render the index page" in new WithApplication{
@@ -24,7 +32,15 @@ class ApplicationSpec extends Specification {
 
       status(home) must equalTo(OK)
       contentType(home) must beSome.which(_ == "text/html")
-      contentAsString(home) must contain ("Your new application is ready.")
+      contentAsString(home) must contain ("Florida")
+    }
+
+    "render the info page" in new WithApplication{
+      val home = route(FakeRequest(GET, "/1")).get
+
+      status(home) must equalTo(OK)
+      contentType(home) must beSome.which(_ == "text/html")
+      contentAsString(home) must contain ("Florida")
     }
   }
 }

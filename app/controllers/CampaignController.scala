@@ -15,7 +15,6 @@ import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
 import services.{RedisService, CampaignService}
 
-import scala.Predef.String
 import scala.util.Random
 
 object CampaignController extends Controller {
