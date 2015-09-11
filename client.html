@@ -1,26 +1,37 @@
 <html>
-    <head>
+<head>
 
-    </head>
-    <body>
+</head>
+<body>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script type="text/javascript">
-            jQuery(function ($) {
-                var campaignId;
-                $.getJSON("http://localhost:9000/api/random")
-                    .success(function(data) {
-                        $("body").append("<a id='roulette' href='#'><img src='data:image/jpg;base64,"+ data.image +"'/></a>");
-                            campaignId = data.id
-                    });
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+    jQuery(function ($) {
+        var ws = new WebSocket("ws://localhost:9000/api/ws");
 
-                $("body").on('click', '#roulette', function() {
-                    $.ajax({
-                        type: "POST",
-                        url: "http://localhost:9000/api/increment/clicks"+campaignId
-                    });
+        ws.onmessage = function (event) {
+            var message = JSON.parse(event.data);
+            alert(message.msg)
+        };
+
+
+        var campaignId;
+        $.getJSON("http://localhost:9000/api/random")
+                .success(function (data) {
+                    $("body").append("<a id='roulette' href='#'><img src='data:image/jpg;base64," + data.image + "'/></a>");
+                    campaignId = data.id
+                    ws.send(JSON.stringify({msg: "views1"}));
                 });
+
+        $("body").on('click', '#roulette', function () {
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:9000/api/increment/clicks" + campaignId
             });
-        </script>
-    </body>
+
+            ws.send(JSON.stringify({msg: "clicks1"}));
+        });
+    });
+</script>
+</body>
 </html>

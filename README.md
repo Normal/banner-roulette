@@ -2,6 +2,7 @@ Used libs:
 play, scala, bootstrap3, slick (versions)
 
 Running:
+- run redis
 - sbt run
 - http://localhost:9000/
 
