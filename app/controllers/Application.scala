@@ -3,6 +3,9 @@ package controllers
 import play.api.mvc._
 import services.{RedisService, CampaignService}
 
+/**
+ * Renders all project pages.
+ */
 object Application extends Controller {
 
   def index = Action { implicit request =>

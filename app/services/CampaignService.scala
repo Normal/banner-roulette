@@ -6,8 +6,12 @@ import slick.driver.H2Driver.api._
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
+/**
+ * Database operations for Campaign model.
+ */
 object CampaignService {
 
+  //see application.conf for datasource settings
   val db = Database.forConfig("db.default")
 
   val campaigns = TableQuery[CampaignTable]
@@ -23,6 +27,6 @@ object CampaignService {
   }
 
   def save(campaign: Campaign) {
-    db.run(campaigns += campaign)
+    Await.result(db.run(campaigns += campaign), Duration.Inf)
   }
 }

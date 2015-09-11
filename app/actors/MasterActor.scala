@@ -8,7 +8,11 @@ import akka.actor.Terminated
 import play.libs.Akka
 import akka.actor.Props
 
-class BoardActor extends Actor with ActorLogging {
+/**
+ * Distributes messages between awaited clients on send event.
+ * Adds client to subscribers on onmessage event.
+ */
+class MasterActor extends Actor with ActorLogging {
   var users = Set[ActorRef]()
 
   def receive = LoggingReceive {
@@ -21,10 +25,14 @@ class BoardActor extends Actor with ActorLogging {
   }
 }
 
-object BoardActor {
-  lazy val board = Akka.system().actorOf(Props[BoardActor])
-  def apply() = board
+object MasterActor {
+  lazy val master = Akka.system().actorOf(Props[MasterActor])
+  def apply() = master
 }
 
+/**
+ * Represents web-socket communication data model.
+ */
 case class Message(uuid: String, id: String, incr: String)
+
 object Subscribe

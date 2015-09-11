@@ -4,11 +4,11 @@ jQuery(function ($) {
 
     ws.onmessage = function (event) {
         var message = JSON.parse(event.data);
-        if (message.id = campaignId) {
-            if(message.incr = "clicks") {
+        if (message.id == campaignId) {
+            if(message.incr == "clicks") {
                 $("#clicks").text(parseInt($("#clicks").text()) + 1);
             }
-            if (message.incr = "views") {
+            if (message.incr == "views") {
                 $("#views").text(parseInt($("#views").text()) + 1);
             }
         }

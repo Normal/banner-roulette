@@ -110,7 +110,6 @@ sbt clean coverage test
 
 
 # Known issues / Comments
-* Sometimes new campaign not appear on main page. 
 * Conversions calculating doesn't work.
 * Test coverage less than 50% (actually its not but coverage tool include some system classes). 
 Also current tests mostly useless, I need more time for them.

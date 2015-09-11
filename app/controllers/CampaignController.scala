@@ -13,12 +13,18 @@ import play.api.data.Form
 import play.api.data.Forms._
 import play.api.libs.json.Json
 import play.api.mvc.{Action, Controller}
-import services.{RedisService, CampaignService}
+import services.{Utils, RedisService, CampaignService}
 
 import scala.util.Random
 
+/**
+ * Handles special Campaign requests.
+ */
 object CampaignController extends Controller {
 
+  /**
+   * Map HTML form to Campaign model object.
+   */
   val campaignForm = Form(
     mapping(
       "id" -> optional(longNumber),
@@ -29,11 +35,14 @@ object CampaignController extends Controller {
       ((campaign: Campaign) => Some(campaign.id, campaign.name, campaign.link))
   )
 
+  /**
+   * Creates new Campaign.
+   */
   def createCampaign = Action(parse.multipartFormData) { implicit request =>
     request.body.file("image").map {
       picture =>
         val is = new FileInputStream(picture.ref.file)
-        val bytes = resizeImage(is)
+        val bytes = Utils.resizeImage(is)
 
         campaignForm.bindFromRequest.fold(
           hasErrors => {
@@ -51,19 +60,9 @@ object CampaignController extends Controller {
     }
   }
 
-  private def resizeImage(is: FileInputStream): Array[Byte] = {
-    val os = new ByteArrayOutputStream()
-
-    val sourceImage = ImageIO.read(is)
-    val thumbnail = sourceImage.getScaledInstance(200, -1, Image.SCALE_SMOOTH)
-    val bufferedThumbnail = new BufferedImage(thumbnail.getWidth(null),
-      thumbnail.getHeight(null),
-      BufferedImage.TYPE_INT_RGB)
-    bufferedThumbnail.getGraphics.drawImage(thumbnail, 0, 0, null)
-    ImageIO.write(bufferedThumbnail, "jpeg", os)
-    os.toByteArray
-  }
-
+  /**
+   * Returns random campaign.
+   */
   def random = Action {
     //ugly solution
     //Its preferable to choose random item on DB side

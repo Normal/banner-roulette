@@ -1,20 +1,20 @@
 package services
 
-import play.api.Logger
 import scredis.Redis
 import models.Statistics
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
-import scala.util.{Success, Failure}
 
+/**
+ * Redis operations for Statistics model.
+ */
 object RedisService {
 
   //redis configuration can be passed here: Redis(config)
   lazy val redis = Redis()
 
   // Import the internal ActorSystem's dispatcher (execution context) to register callbacks
-
   import redis.dispatcher
 
   def get(id: String): Statistics = {
@@ -28,5 +28,25 @@ object RedisService {
 
   def increment(id: String, key: String): Unit = {
     redis.incr(RedisSchema.key(id, key))
+  }
+}
+
+/**
+ * Redis keys for Statistics model.
+ */
+object RedisSchema {
+
+  def views(id: String) = s"uid:$id:views"
+
+  def clicks(id: String) = s"uid:$id:clicks"
+
+  def conversions(id: String) = s"uid:$id:conversions"
+
+  def all(id: String): List[String] = {
+    List(views(id), clicks(id), conversions(id))
+  }
+
+  def key(id: String, key:String) = {
+    s"uid:$id:$key"
   }
 }
