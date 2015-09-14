@@ -18,12 +18,11 @@ object RedisService {
   import redis.dispatcher
 
   def get(id: String): Statistics = {
-    var statistics: Statistics = Statistics(Some(id.toLong), "0", "0", "0")
+    var statistics: Statistics = Statistics(Some(id.toLong), "0", "0")
     val result = Await.result(redis.mGetAsMap[String](RedisSchema.all(id): _*), Duration.Inf)
     Statistics(Some(id.toLong),
       result.getOrElse(RedisSchema.views(id), "0"),
-      result.getOrElse(RedisSchema.clicks(id), "0"),
-      result.getOrElse(RedisSchema.conversions(id), "0"))
+      result.getOrElse(RedisSchema.clicks(id), "0"))
   }
 
   def increment(id: String, key: String): Unit = {
@@ -40,10 +39,8 @@ object RedisSchema {
 
   def clicks(id: String) = s"uid:$id:clicks"
 
-  def conversions(id: String) = s"uid:$id:conversions"
-
   def all(id: String): List[String] = {
-    List(views(id), clicks(id), conversions(id))
+    List(views(id), clicks(id))
   }
 
   def key(id: String, key:String) = {
