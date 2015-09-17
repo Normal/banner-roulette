@@ -1,13 +1,10 @@
 package controllers
 
 
-import java.awt.Image
-import java.awt.image.BufferedImage
-import java.io.{ByteArrayOutputStream, FileInputStream}
+import java.io.{File, FileInputStream}
 import javax.imageio.ImageIO
 
 import models.Campaign
-import org.apache.commons.codec.binary.Base64
 import play.api.Logger
 import play.api.data.Form
 import play.api.data.Forms._
@@ -31,7 +28,7 @@ object CampaignController extends Controller {
       "name" -> nonEmptyText,
       "link" -> nonEmptyText
     )
-      ((id, name, link) => Campaign(id, name, link, null))
+      ((id, name, link) => Campaign(id, name, link))
       ((campaign: Campaign) => Some(campaign.id, campaign.name, campaign.link))
   )
 
@@ -41,9 +38,6 @@ object CampaignController extends Controller {
   def createCampaign = Action(parse.multipartFormData) { implicit request =>
     request.body.file("image").map {
       picture =>
-        val is = new FileInputStream(picture.ref.file)
-        val bytes = Utils.resizeImage(is)
-
         campaignForm.bindFromRequest.fold(
           hasErrors => {
             Logger.debug("Some form validation error occurs")
@@ -51,7 +45,13 @@ object CampaignController extends Controller {
           },
           campaign => {
             Logger.debug("Campaign object successfully obtains")
-            CampaignService.save(campaign.copy(image = new String(Base64.encodeBase64(bytes))))
+            val id: Long = CampaignService.save(campaign)
+
+            val is = new FileInputStream(picture.ref.file)
+            val bufferedThumbnail = Utils.resizeImage(is)
+            val file: File = new File(s"public/images/icons/$id.jpg")
+            file.createNewFile()
+            ImageIO.write(bufferedThumbnail, "jpeg", file)
           })
         Redirect(routes.Application.index()).flashing("success" -> "Contact saved!")
     }.getOrElse {

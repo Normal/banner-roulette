@@ -26,7 +26,9 @@ object CampaignService {
     }.result), Duration.Inf).head
   }
 
-  def save(campaign: Campaign) {
-    Await.result(db.run(campaigns += campaign), Duration.Inf)
+  def save(campaign: Campaign): Long = {
+    Await.result({
+      db.run((campaigns returning campaigns.map(_.id)) += campaign)
+    }, Duration.Inf)
   }
 }

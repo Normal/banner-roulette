@@ -44,7 +44,7 @@
                             var campaignId;
                             $.getJSON("http://localhost:9000/api/random")
                                     .success(function (data) {
-                                        $("body").append("&lt;a id='roulette' href='#'&gt;&lt;img src='data:image/jpg;base64," + data.image + "'/&gt;&lt;/a&gt;");
+                                        $("body").append("&lt;a id='roulette' href='#'&gt;&lt;img src='http://localhost:9000/assets/images/icons/" + data.id + ".jpg'/&gt;&lt;/a&gt;");
                                         campaignId = data.id;
                                         ws.send(JSON.stringify({id: campaignId+"", incr: "views"}));
                                     });

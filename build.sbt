@@ -22,7 +22,5 @@ libraryDependencies ++= Seq(
   "org.scalatest" %% "scalatest" % "2.2.1" % "test"
 )
 
-unmanagedResourceDirectories in Test <+= baseDirectory(_ / "target/web/public/test")
-
 //for scredis
 resolvers += "Sonatype OSS Releases" at "https://oss.sonatype.org/content/repositories/releases/"

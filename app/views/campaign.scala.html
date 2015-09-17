@@ -1,16 +1,16 @@
 @(campaign: Campaign, statistics: Statistics)
 
-    @main(campaign.name) {
-        <table id="container" class="table table-condensed" data-campaign-id="@campaign.id">
-            <tr>
-                <td><img src="data:image/jpg;base64,@campaign.image" /></td>
-                <td><h1>@campaign.name</h1></td>
-                <td><h3>@campaign.link</h3></td>
-            </tr>
-            <tr>
-                <td><h3>Views <span class="label label-default" id="views">@statistics.views</span></h3></td>
-                <td><h3>Clicks <span class="label label-default" id="clicks">@statistics.clicks</span></h3></td>
-                <td><h3>Conversions <span class="label label-default" id="conversions">@statistics.conversions</span></h3></td>
-            </tr>
-        </table>
-    }
+@main(campaign.name) {
+    <table id="container" class="table table-condensed" data-campaign-id="@campaign.id">
+        <tr>
+            <td><img src="@routes.Assets.at("images/icons/" + campaign.id.get + ".jpg")" /></td>
+            <td><h1>@campaign.name</h1></td>
+            <td><h3>@campaign.link</h3></td>
+        </tr>
+        <tr>
+            <td><h3>Views <span class="label label-default" id="views">@statistics.views</span></h3></td>
+            <td><h3>Clicks <span class="label label-default" id="clicks">@statistics.clicks</span></h3></td>
+            <td><h3>Conversions <span class="label label-default" id="conversions">@statistics.conversions</span></h3></td>
+        </tr>
+    </table>
+}

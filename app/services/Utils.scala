@@ -10,7 +10,7 @@ import javax.imageio.ImageIO
  */
 object Utils {
 
-  def resizeImage(is: FileInputStream): Array[Byte] = {
+  def resizeImage(is: FileInputStream): BufferedImage = {
     val os = new ByteArrayOutputStream()
 
     val sourceImage = ImageIO.read(is)
@@ -19,7 +19,6 @@ object Utils {
       thumbnail.getHeight(null),
       BufferedImage.TYPE_INT_RGB)
     bufferedThumbnail.getGraphics.drawImage(thumbnail, 0, 0, null)
-    ImageIO.write(bufferedThumbnail, "jpeg", os)
-    os.toByteArray
+    bufferedThumbnail
   }
 }

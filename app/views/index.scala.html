@@ -14,7 +14,7 @@
                 <td><a href="@routes.Application.campaign(campaign.id.get)">@campaign.name</a></td>
                 <td>@campaign.link</td>
                 <td>
-                    <img src="data:image/jpg;base64,@campaign.image" width="100"/>
+                    <img src="@routes.Assets.at("images/icons/" + campaign.id.get + ".jpg")" width="100"/>
                 </td>
             </tr>
         }
