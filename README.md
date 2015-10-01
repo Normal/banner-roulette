@@ -1,7 +1,3 @@
-# Description
-Wrote by *George Yarish* for *PollToPay* as test assignment.
-Project requirements [specification link](https://docs.google.com/document/d/1rwbn8AXpIQiz4GZt9iaF_BUVZPblOqztLSvGjyZDHLI/edit?pli=1).
-
 ## Technology stack
 * [*Scala*](http://www.scala-lang.org/) - programming language
 * [*Play framework*](https://www.playframework.com/) - MVC
@@ -107,16 +103,6 @@ sbt clean coverage test
   99%     31
   
  100%     78 (longest request)
-
-
-# Known issues / Comments
-* Test coverage less than 50% (actually its not but coverage tool include some system classes). 
-Also current tests mostly useless, I need more time for them.
-* Images resize only by width. This is not an error - I did it intentionally.
-* I applied in-memory store but guess it is acceptable because it used only for rarely-change campaign data,
- for statistics used honest redis.
-* Benchmarking counting only for **/api/random** - the most frequent used operation AFAIK.
-* I don't think that store images as base64 in RDBMS good idea but was used as fast to implement solution. 
 
 
 
